@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jungwon Jung — QA Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg-light: #f9fafb;
+      --bg-tag: #f3f4f6;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --red: #dc2626;
+      --red-bg: #fee2e2;
+      --orange: #d97706;
+      --orange-bg: #fef3c7;
+      --blue: #2563eb;
+      --blue-bg: #dbeafe;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--black);
+      letter-spacing: 0;
+    }
+
+    .nav-logo span { color: var(--muted); font-weight: 400; }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.15s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--black);
+      border-radius: 1px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-links a.nav-active {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    .nav-links a.nav-active::after { opacity: 1; }
+
+    /* ── LAYOUT ── */
+    main { padding-top: 56px; }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* ── HERO / ABOUT ── */
+    #about {
+      padding: 72px 0 60px;
+      background: #fff;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      letter-spacing: 0;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: #374151;
+      max-width: 580px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #333; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: #9ca3af; background: var(--bg-light); }
+
+    .btn-green {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .btn-green:hover { background: #15803d; }
+
+    /* stat cards */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      background: var(--bg-light);
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* experience */
+    .exp-section { margin-top: 40px; }
+
+    .exp-section h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-date {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      padding-top: 2px;
+      line-height: 1.4;
+    }
+
+    .exp-role {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .exp-company {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+      margin-bottom: 8px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .exp-bullets li {
+      font-size: 13px;
+      color: #4b5563;
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+    }
+
+    /* ── TEST PLAN ── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .plan-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .plan-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .plan-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .plan-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    .plan-card-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .plan-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .plan-items li {
+      font-size: 13px;
+      color: #374151;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.5;
+    }
+
+    .plan-items li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 11px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .plan-item-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .plan-item-head {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .plan-item-body {
+      font-size: 12px;
+      color: #4b5563;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .scope-table-wrap { margin-top: 28px; }
+
+    .scope-table-wrap h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    /* ── TABLES ── */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: var(--bg-light);
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      padding: 9px 13px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 11px 13px;
+      vertical-align: top;
+      color: #374151;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.45;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-light); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .badge-pass { background: var(--green-bg); color: var(--green); }
+    .badge-fail { background: var(--red-bg); color: var(--red); }
+    .badge-blocked { background: var(--orange-bg); color: var(--orange); }
+    .badge-type { background: var(--bg-tag); color: #4b5563; }
+    .badge-high { background: var(--red-bg); color: var(--red); }
+    .badge-medium { background: var(--orange-bg); color: var(--orange); }
+    .badge-low { background: var(--blue-bg); color: var(--blue); }
+    .badge-critical { background: #fce7f3; color: #be185d; }
+    .badge-major { background: var(--red-bg); color: var(--red); }
+    .badge-minor { background: var(--blue-bg); color: var(--blue); }
+
+    .test-id {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--black);
+      background: var(--bg-tag);
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px;
+      background: var(--bg-light);
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      padding: 6px 18px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      color: var(--black);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .sheet-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      gap: 12px;
+    }
+
+    .sheet-link-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .sheet-link-text strong { color: var(--text); }
+
+    /* ── BUG REPORTS ── */
+    .bug-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .bug-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .bug-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .bug-id {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg-tag);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .bug-badges { display: flex; gap: 4px; flex-wrap: wrap; }
+
+    .bug-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    .bug-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.4;
+    }
+    .bug-meta-date {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .bug-body {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .bug-row {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 8px;
+    }
+
+    .bug-row-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0;
+      padding-top: 1px;
+    }
+
+    .bug-row-val {
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* ── TEST SUMMARY ── */
+    .summary-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .donut-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .donut-label-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .donut-app-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .donut-pct {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: -0.5px;
+    }
+
+    .donut-count {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .donut-legend {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .summary-tables {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .summary-table-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .summary-table-title {
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-light);
+    }
+
+    .summary-eval {
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .summary-eval h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .summary-eval p {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.65;
+    }
+
+    /* ── TOOLS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .tools-group h3 {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 12px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 400;
+      background: var(--bg-tag);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .num {
+      font-weight: 700;
+      color: var(--black);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── AUTOMATION CALLOUT ── */
+    .automation-callout {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      background: #f8fafc;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .automation-callout-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .automation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .automation-desc {
+      font-size: 12px;
+      color: #4b5563;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .automation-desc code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      background: #e5e7eb;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #1f2937;
+    }
+
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 13px 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11.5px;
+      line-height: 1.75;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0;
+    }
+
+    .code-block .tree-dim { color: #64748b; }
+    .code-block .tree-file { color: #94a3b8; }
+    .code-block .tree-highlight { color: #f59e0b; }
+    .code-block .tree-fail { color: #f87171; }
+
+    .bug-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 0 8px;
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+
+    .bug-group-label:first-child { border-top: none; margin-top: 0; }
+
+    /* ── SIDE NAV ── */
+    .side-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 90;
+    }
+
+    .side-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .side-nav-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.15s, transform 0.15s;
+      pointer-events: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+
+    .side-nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d1d5db;
+      transition: background 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .side-nav-item:hover .side-nav-label,
+    .side-nav-item.active .side-nav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .side-nav-item.active .side-nav-dot {
+      background: var(--black);
+      transform: scale(1.4);
+    }
+
+    .side-nav-item:hover .side-nav-dot {
+      background: #6b7280;
+    }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--black);
+      border-radius: 1px;
+      transition: all 0.2s;
+    }
+    nav.nav-open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.nav-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+    nav.nav-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 40px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--text); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      /* Side nav */
+      .side-nav { display: none; }
+
+      /* Nav */
+      nav { padding: 0 18px; position: relative; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px; left: 0; right: 0;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 4px 18px 12px;
+        gap: 0;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+        z-index: 99;
+      }
+      nav.nav-open .nav-links { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--border); }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a { display: block; padding: 12px 0; font-size: 14px; color: var(--text); }
+      .nav-links a::after { display: none; }
+      .nav-links a.nav-active { color: var(--black); font-weight: 600; }
+
+      /* Layout */
+      .container { padding: 0 18px; }
+      section { padding: 40px 0; }
+      #about { padding: 48px 0 40px; }
+      h2 { font-size: 24px; }
+      .section-desc { max-width: 100%; }
+
+      /* Hero */
+      .hero-title { font-size: 28px; letter-spacing: -0.3px; }
+      .hero-sub { font-size: 15px; }
+      .hero-desc { font-size: 14px; }
+      .hero-links { gap: 8px; }
+      .hero-links .btn { flex: 1 1 calc(50% - 4px); justify-content: center; text-align: center; font-size: 12px; }
+
+      /* Stat cards */
+      .stat-cards { grid-template-columns: 1fr; gap: 10px; }
+
+      /* Experience */
+      .exp-item { grid-template-columns: 1fr; gap: 2px; }
+
+      /* Grid collapses */
+      .plan-grid { grid-template-columns: 1fr; }
+      .bug-grid { grid-template-columns: 1fr; }
+      .summary-top { grid-template-columns: 1fr; }
+      .summary-tables { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+
+      /* Tables — horizontal scroll */
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
+      table { min-width: 580px; }
+
+      /* Tabs */
+      .tabs { width: 100%; }
+      .tab-btn { flex: 1; padding: 6px 8px; font-size: 12px; text-align: center; }
+
+      /* Sheet link rows */
+      .sheet-link-row { flex-direction: column; align-items: stretch; gap: 8px; }
+      .sheet-link-row .btn { justify-content: center; text-align: center; width: 100% !important; }
+      .sheet-link-row > div { display: flex; flex-direction: column; gap: 6px; }
+      .sheet-link-row > div .btn { width: 100% !important; }
+
+      /* Bug cards */
+      .bug-row { grid-template-columns: 64px 1fr; gap: 6px; }
+
+      /* Summary donuts */
+      .donut-legend { flex-wrap: wrap; gap: 8px 12px; justify-content: center; }
+
+      /* Automation callout */
+      .automation-callout-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .code-block { font-size: 10px; line-height: 1.65; }
+
+      /* Footer */
+      footer { padding: 24px 18px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 26px; }
+      .hero-links .btn { flex: 1 1 100%; }
+      .stat-number { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <div class="nav-logo">Jungwon Jung <span>/ QA Portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#test-plan" onclick="closeNav()">Test Plan</a></li>
+    <li><a href="#test-cases" onclick="closeNav()">Test Cases</a></li>
+    <li><a href="#bug-reports" onclick="closeNav()">Bug Reports</a></li>
+    <li><a href="#summary" onclick="closeNav()">Summary</a></li>
+    <li><a href="#tools" onclick="closeNav()">Tools</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="side-nav" id="side-nav">
+  <button class="side-nav-item" onclick="scrollToSection('about')">
+    <span class="side-nav-label">About</span>
+    <span class="side-nav-dot"></span>
+  </button>
+  <button class="side-nav-item" onclick="scrollToSection('test-plan')">
+    <span class="side-nav-label">Test Plan</span>
+    <span class="side-nav-dot"></span>
+  </button>
+  <button class="side-nav-item" onclick="scrollToSection('test-cases')">
+    <span class="side-nav-label">Test Cases</span>
+    <span class="side-nav-dot"></span>
+  </button>
+  <button class="side-nav-item" onclick="scrollToSection('bug-reports')">
+    <span class="side-nav-label">Bug Reports</span>
+    <span class="side-nav-dot"></span>
+  </button>
+  <button class="side-nav-item" onclick="scrollToSection('summary')">
+    <span class="side-nav-label">Summary</span>
+    <span class="side-nav-dot"></span>
+  </button>
+  <button class="side-nav-item" onclick="scrollToSection('tools')">
+    <span class="side-nav-label">Tools</span>
+    <span class="side-nav-dot"></span>
+  </button>
+</div>
+
+<main>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="hero-tag">QA Engineer · Developer</div>
+    <h1 class="hero-title">Jungwon Jung</h1>
+    <p class="hero-sub">QA engineer with a developer's eye for failure.</p>
+    <p class="hero-desc">
+      I built both test subjects from scratch — so every edge case here came from reading actual source code, not guessing at inputs. This portfolio covers <strong>Challengers</strong> (iOS&nbsp;·&nbsp;SwiftUI&nbsp;·&nbsp;Firebase) across <span class="num">32</span>&nbsp;structured&nbsp;test&nbsp;cases, and <strong><span style="white-space:nowrap">jay&#8209;portfolio.dev</span></strong> (React&nbsp;·&nbsp;TypeScript) across <span class="num">28</span>&nbsp;automated&nbsp;Playwright&nbsp;cases.
+    </p>
+    <div class="hero-links">
+      <a class="btn btn-outline" href="https://drive.google.com/file/d/18JyFGq-84HqCaQ9H2bpI2eCFGg7Amzen/view?usp=sharing" target="_blank">Resume ↗</a>
+      <a class="btn btn-primary" href="https://www.linkedin.com/in/jungwon-jung-218750232/" target="_blank">LinkedIn ↗</a>
+      <a class="btn btn-outline" href="https://jay-portfolio.dev" target="_blank">jay-portfolio.dev ↗</a>
+      <a class="btn btn-outline" href="mailto:wjdwjd1501@gmail.com">wjdwjd1501@gmail.com</a>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Years across backend, iOS &amp; QA roles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98%+</div>
+        <div class="stat-label">Personal accuracy rate at Telus Digital</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">iOS apps shipped to the App Store</div>
+      </div>
+    </div>
+
+    <div class="exp-section">
+      <h3>Experience</h3>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-date">Oct 2024 – Present</div>
+          <div>
+            <div class="exp-role">Data QA Analyst</div>
+            <div class="exp-company">Telus Digital</div>
+            <ul class="exp-bullets">
+              <li>Review <span class="num">~400</span> AI&nbsp;training data entries per day; maintained <span class="num">98%+</span> accuracy across all batches</li>
+              <li>Write defect tickets with reproduction steps when model outputs don't meet acceptance criteria</li>
+              <li>Work with annotators to refine edge-case acceptance criteria</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-date">May – Aug 2024</div>
+          <div>
+            <div class="exp-role">Full-Stack Developer Intern</div>
+            <div class="exp-company">Avelinix</div>
+            <ul class="exp-bullets">
+              <li>Built and maintained REST APIs; wrote integration tests for endpoints</li>
+              <li>Ran regression passes after feature merges; tracked defect lifecycle in Jira</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-date">Sep 2021 – Jan 2023</div>
+          <div>
+            <div class="exp-role">Backend Developer (QA Focus)</div>
+            <div class="exp-company">FlareLane, Seoul</div>
+            <ul class="exp-bullets">
+              <li>Owned backend QA for push-notification delivery pipeline</li>
+              <li>Built smoke and regression test suites; tracked defects in Jira</li>
+              <li>Ran structured pre-release testing cycles before each deployment</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-date">Oct 2023 – Mar 2027</div>
+          <div>
+            <div class="exp-role">B.Sc. Computer Science — Mobile &amp; Cloud</div>
+            <div class="exp-company">WSB University, Poland &nbsp;·&nbsp; ISTQB Foundation (in preparation)</div>
+            <ul class="exp-bullets">
+              <li>Specialisation in mobile architecture and cloud infrastructure</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEST PLAN ── -->
+<section id="test-plan">
+  <div class="container">
+    <div class="section-label">Test Plan</div>
+    <h2>How I Approach Testing</h2>
+    <p class="section-desc">Scope, test types, known risks, and entry/exit criteria for both products.</p>
+
+    <div class="plan-grid">
+      <!-- Challengers -->
+      <div class="plan-card">
+        <div class="plan-card-header">
+          <div class="plan-icon" style="background:#f0fdf4;">🏆</div>
+          <div>
+            <div class="plan-card-title">Challengers iOS — CHG-TP-002 v2.0</div>
+            <div class="plan-card-sub">iOS 17+ · SwiftUI · Firebase · Cloudinary · 32 cases</div>
+          </div>
+        </div>
+        <ul class="plan-items">
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Smoke <span class="badge badge-type">P0 · 3 cases</span></div>
+            <div class="plan-item-body">Launch, sign-in, create challenge, toggle completion. Failure here blocks the session.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Happy Path <span class="badge badge-type">P1 · 11 cases</span></div>
+            <div class="plan-item-body">Auth flows, challenge lifecycle, check-in photo, QR invite, ranking, notifications.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Edge / Negative <span class="badge badge-type">P1–P2 · 16 cases</span></div>
+            <div class="plan-item-body">Offline mode, midnight cache, upload race condition, account linking, GDPR deletion.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Regression</div>
+            <div class="plan-item-body">Full suite re-run after each fix. Smoke subset only when the fix is isolated.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Exploratory <span class="badge badge-type">30 min · unscripted</span></div>
+            <div class="plan-item-body">Deep-link entry, mid-session locale switch, Firestore offline persistence.</div>
+          </div></li>
+        </ul>
+      </div>
+
+      <!-- Portfolio Web -->
+      <div class="plan-card">
+        <div class="plan-card-header">
+          <div class="plan-icon" style="background:#eff6ff;">🌐</div>
+          <div>
+            <div class="plan-card-title">jay-portfolio.dev — JPF-TC-001 v1.0</div>
+            <div class="plan-card-sub">React · TypeScript · Tailwind · Playwright · 28 cases</div>
+          </div>
+        </div>
+        <ul class="plan-items">
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Smoke <span class="badge badge-type">3 cases</span></div>
+            <div class="plan-item-body">Root loads clean; LandingHero renders; CTA dismisses hero to IOSHome.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Navigation <span class="badge badge-type">6 cases</span></div>
+            <div class="plan-item-body">Detail routing, back button (skipLanding flag), hard-refresh on deep link.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Content <span class="badge badge-type">5 cases</span></div>
+            <div class="plan-item-body">ABOUT / EDUCATION accuracy; all 3 projects listed; tech stack rows; hero images.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Links <span class="badge badge-type">7 cases</span></div>
+            <div class="plan-item-body">App Store (3), GitHub (2), LinkedIn, Resume PDF — correctness via <code style="font-family:monospace;font-size:11px">window.open</code> intercept.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Visual <span class="badge badge-type">4 cases</span></div>
+            <div class="plan-item-body">Gradient persistence, entrance animation, iOS-style separators/chevrons, 375px layout.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Edge / Negative <span class="badge badge-type">3 cases</span></div>
+            <div class="plan-item-body">Invalid route IDs → NotFound; cold deep-link entry. Both FAIL cases found here.</div>
+          </div></li>
+        </ul>
+      </div>
+
+      <!-- Risks -->
+      <div class="plan-card">
+        <div class="plan-card-header">
+          <div class="plan-icon" style="background:#fff7ed;">⚠️</div>
+          <div>
+            <div class="plan-card-title">Risks &amp; Mitigations</div>
+            <div class="plan-card-sub">Challengers — identified from source code</div>
+          </div>
+        </div>
+        <ul class="plan-items">
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">FCM auth error <span class="badge badge-type">~weekly</span></div>
+            <div class="plan-item-body">Run notification tests right after a fresh Firebase Function deploy.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">AASA Team ID missing</div>
+            <div class="plan-item-body">Verify before session; CH-QR-001 is blocked if AASA not live.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">dateKey listener stale past midnight</div>
+            <div class="plan-item-body">CH-CHAL-006 targets this; run near midnight or manipulate device clock.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Silent upload failure <span class="badge badge-type">push disabled</span></div>
+            <div class="plan-item-body">Check via Xcode console; CH-CHKIN-003 logs this as P2.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Single physical device</div>
+            <div class="plan-item-body">Friend/QR 2-device tests partially covered with Simulator — no camera, no FCM.</div>
+          </div></li>
+        </ul>
+      </div>
+
+      <!-- Entry/Exit -->
+      <div class="plan-card">
+        <div class="plan-card-header">
+          <div class="plan-icon" style="background:#fdf4ff;">📋</div>
+          <div>
+            <div class="plan-card-title">Entry / Exit Criteria</div>
+            <div class="plan-card-sub">CHG-TP-002 §7–8</div>
+          </div>
+        </div>
+        <ul class="plan-items">
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Entry</div>
+            <div class="plan-item-body">Build installs; Firebase + FCM live; AASA deployed; both accounts ready; Firestore seeded.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Exit — Smoke <span class="badge badge-type">P0</span></div>
+            <div class="plan-item-body">All 3 smoke cases pass. Any failure blocks release.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Exit — P1</div>
+            <div class="plan-item-body">All happy-path and critical edge cases pass; no open Critical bugs.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Exit — Regression</div>
+            <div class="plan-item-body">Full 32-case suite run once on the release candidate build.</div>
+          </div></li>
+          <li><div class="plan-item-content">
+            <div class="plan-item-head">Severity scale</div>
+            <div class="plan-item-body">Critical → High → Medium → Low · IDs: CH-{TYPE}-{###}</div>
+          </div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="scope-table-wrap">
+      <h3>Execution Areas (CHG-TP-002 §9)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Test Cases</th>
+              <th>Types</th>
+              <th>Est. Time</th>
+              <th>#</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Smoke</strong></td>
+              <td>CH-SMOKE-001~003</td>
+              <td><span class="badge badge-type">Smoke P0</span></td>
+              <td>~15 min</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td><strong>Authentication</strong></td>
+              <td>CH-AUTH-001~006</td>
+              <td><span class="badge badge-type">Functional</span> <span class="badge badge-type">Edge</span></td>
+              <td>~45 min</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td><strong>Challenge CRUD &amp; Limits</strong></td>
+              <td>CH-CHAL-001~006</td>
+              <td><span class="badge badge-type">Functional</span> <span class="badge badge-type">Edge</span></td>
+              <td>~45 min</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td><strong>Check-In Photo</strong></td>
+              <td>CH-CHKIN-001~004</td>
+              <td><span class="badge badge-type">Functional</span> <span class="badge badge-type">Edge</span></td>
+              <td>~35 min</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td><strong>Friends &amp; QR Invite</strong></td>
+              <td>CH-FRD-001~002 · CH-QR-001~004</td>
+              <td><span class="badge badge-type">Functional</span> <span class="badge badge-type">Edge</span></td>
+              <td>~45 min</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td><strong>Ranking</strong></td>
+              <td>CH-RANK-001</td>
+              <td><span class="badge badge-type">Functional</span></td>
+              <td>~10 min</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><strong>Push Notifications</strong></td>
+              <td>CH-NOTIF-001</td>
+              <td><span class="badge badge-type">Functional</span></td>
+              <td>~20 min</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><strong>Settings &amp; Language</strong></td>
+              <td>CH-SET-001~002</td>
+              <td><span class="badge badge-type">Functional</span> <span class="badge badge-type">Edge</span></td>
+              <td>~20 min</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td><strong>Privacy / GDPR</strong></td>
+              <td>CH-PRIV-001</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td>~20 min</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><strong>Portfolio Web</strong></td>
+              <td>PORT-SMOKE · PORT-NAV · PORT-CONT · PORT-LINK · PORT-VIS · PORT-EDGE</td>
+              <td><span class="badge badge-type">Smoke</span> <span class="badge badge-type">Functional</span> <span class="badge badge-type">Visual</span> <span class="badge badge-type">Edge</span></td>
+              <td>~automated</td>
+              <td>28</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEST CASES ── -->
+<section id="test-cases">
+  <div class="container">
+    <div class="section-label">Test Cases</div>
+    <h2>Test Cases</h2>
+    <p class="section-desc">5-row preview per product. Full suite with step-by-step instructions, test data, and actual results is in Google Sheets.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('challengers')">🏆 Challengers (iOS)</button>
+      <button class="tab-btn" onclick="switchTab('portfolio')">🌐 Portfolio Web</button>
+    </div>
+
+    <!-- Challengers tab -->
+    <div class="tab-panel active" id="tab-challengers">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Test ID</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Priority</th>
+              <th>Expected Result</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="test-id">CH-SMOKE-001</span></td>
+              <td>Sign in with valid email and password</td>
+              <td><span class="badge badge-type">Smoke P0</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>HomeView opens with active challenges and bottom nav bar visible</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-AUTH-001</span></td>
+              <td>Full sign-up: ConsentView → SignUpView → ProfileEditView → HomeView</td>
+              <td><span class="badge badge-type">Functional</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>User lands on HomeView; nameTag generated (e.g. Jay#4521); challenge list empty</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-QR-003</span></td>
+              <td>Scan own Friend QR — silent no-op, no banner, no self-friend added</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>InviteRouter detects self-scan (inviterUID == currentUID) and returns silently</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-CHAL-006</span></td>
+              <td>App open at 23:50, toggle completion, cross midnight — cache invalidates correctly</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>ChallengeStore detects dateKey mismatch at midnight; new key applied; no stale state shown</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-CHKIN-002</span></td>
+              <td>Capture photo → toggle OFF before upload finishes → upload cancelled, no orphan in Cloudinary</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>Task.checkCancellation() fires; no check-in in feed; no orphaned image in Cloudinary</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sheet-link-row">
+        <span class="sheet-link-text"><strong>32 cases total</strong> — Smoke (3) · Happy Path (11) · Edge / Negative (16) · 2 Blocked (environment)</span>
+        <a class="btn btn-green" href="https://docs.google.com/spreadsheets/d/1ror44t4-Z4dMmsEdIIiMjsQsxkUmRp1echKxHUmD530/edit?usp=sharing" target="_blank">View Full Sheet on Google Sheets →</a>
+      </div>
+    </div>
+
+    <!-- Portfolio Web tab -->
+    <div class="tab-panel" id="tab-portfolio">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Test ID</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Priority</th>
+              <th>Expected Result</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="test-id">PORT-SMOKE-001</span></td>
+              <td>Site root loads without errors — no blank screen, no JS exceptions</td>
+              <td><span class="badge badge-type">Smoke P0</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>DevTools Console: 0 app JS errors; LandingHero renders</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">PORT-NAV-004</span></td>
+              <td>ProjectDetail back button → returns to IOSHome (skipLanding flag respected)</td>
+              <td><span class="badge badge-type">Navigation</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>IOSHome shown; Landing Hero NOT re-displayed</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">PORT-LINK-007</span></td>
+              <td>CONTACT Resume row → CV PDF opens (HTTP 200, no 404)</td>
+              <td><span class="badge badge-type">Links</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>/public/JUNGWON_JUNG_CV_2026.pdf returns 200 OK</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr style="background:#fff5f5;">
+              <td><span class="test-id">PORT-EDGE-001</span></td>
+              <td>Navigate to /project/doesnotexist → NotFound page shown, no crash</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>NotFound component renders with user-friendly 404 message</td>
+              <td><span class="badge badge-fail">FAIL</span></td>
+            </tr>
+            <tr style="background:#fff5f5;">
+              <td><span class="test-id">PORT-EDGE-002</span></td>
+              <td>Navigate to /career/fakeid → NotFound page shown, no crash</td>
+              <td><span class="badge badge-type">Edge</span></td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>NotFound component renders; no blank screen or JS error</td>
+              <td><span class="badge badge-fail">FAIL</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="automation-callout">
+        <div class="automation-callout-header">
+          <span class="automation-badge">⚡ Playwright · TypeScript</span>
+          <span style="font-size:12px; color:var(--muted);">Headless Chromium · Results exported to test_results.json → Excel</span>
+        </div>
+        <div class="automation-desc">
+          All 28 cases run via <code>@playwright/test</code> — button clicks, URL assertions, <code>window.open</code> intercepts, HTTP status checks, DOM content verification. Not a manual run.
+        </div>
+        <pre class="code-block"><span class="tree-dim">Jay-Portfolio/</span>
+<span class="tree-dim">├── playwright.config.ts</span>
+<span class="tree-dim">└── tests/</span>
+<span class="tree-file">    ├── helpers.ts</span><span class="tree-dim">           ← dismissLanding, mockWindowOpen</span>
+<span class="tree-file">    ├── smoke.spec.ts</span><span class="tree-dim">        (3 cases · all PASS)</span>
+<span class="tree-file">    ├── navigation.spec.ts</span><span class="tree-dim">   (6 cases · all PASS)</span>
+<span class="tree-file">    ├── content.spec.ts</span><span class="tree-dim">      (5 cases · all PASS)</span>
+<span class="tree-file">    ├── links.spec.ts</span><span class="tree-dim">        (7 cases · all PASS)</span>
+<span class="tree-file">    ├── visual.spec.ts</span><span class="tree-dim">       (4 cases · all PASS)</span>
+<span class="tree-file">    └── edge.spec.ts</span><span class="tree-dim">         (3 cases · </span><span class="tree-fail">2 FAIL → bugs filed</span><span class="tree-dim">)</span></pre>
+      </div>
+
+      <div class="sheet-link-row">
+        <span class="sheet-link-text"><strong>28 cases total</strong> — Smoke (3) · Nav (6) · Content (5) · Links (7) · Visual (4) · Edge (3)</span>
+        <a class="btn btn-green" href="https://docs.google.com/spreadsheets/d/1IMIuFrvZvyxWDjW-5Yv26i6dtuPU_AXh1HMyq6jJq6o/edit?usp=sharing" target="_blank">View Full Sheet on Google Sheets →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BUG REPORTS ── -->
+<section id="bug-reports">
+  <div class="container">
+    <div class="section-label">Bug Reports</div>
+    <h2>Bug Reports</h2>
+    <p class="section-desc">6 bugs in Challengers (manual), 2 in jay-portfolio.dev (Playwright). All resolved.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchBugTab('bug-challengers', this)">🏆 Challengers iOS</button>
+      <button class="tab-btn" onclick="switchBugTab('bug-portfolio', this)">🌐 Portfolio Web</button>
+    </div>
+
+    <!-- Challengers bugs tab -->
+    <div class="tab-panel active" id="tab-bug-challengers">
+      <div class="bug-grid">
+
+        <!-- Bug 1 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-001</span>
+            <div class="bug-badges"><span class="badge badge-critical">Critical</span></div>
+          </div>
+          <div class="bug-title">Check-in photo not visible to other challenge members</div>
+          <div class="bug-meta"><span>Challengers iOS · 2 devices · iOS 17+</span><span class="bug-meta-date">Jan 15, 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Account A submits a check-in photo. 2. Account B opens the challenge detail view.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Photo appears in Account B's check-in feed.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Photo not shown. Record saved to Firestore but not rendered for other members.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- Bug 2 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-002</span>
+            <div class="bug-badges"><span class="badge badge-critical">Critical</span></div>
+          </div>
+          <div class="bug-title">ConsentView Continue button unresponsive on fresh install</div>
+          <div class="bug-meta"><span>Challengers iOS · All devices · iOS 17+</span><span class="bug-meta-date">Dec 18, 2025</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Fresh install; tap Sign Up. 2. ConsentView loads; check privacy checkbox. 3. Tap Continue.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Navigates to sign-up form (step 2 of 3).</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Continue tap has no effect; user is stuck on the consent screen.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- Bug 3 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-003</span>
+            <div class="bug-badges"><span class="badge badge-medium">Medium</span></div>
+          </div>
+          <div class="bug-title">Duplicate friend request sent when tapping Add Friend twice</div>
+          <div class="bug-meta"><span>Challengers iOS · iPhone 15 · iOS 17</span><span class="bug-meta-date">Feb 22, 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Open Friends tab; search for a user. 2. Tap Add Friend twice in quick succession.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">One request sent; button shows Sent state after first tap.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Two requests saved to Firestore; recipient gets two notifications.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- Bug 4 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-004</span>
+            <div class="bug-badges"><span class="badge badge-medium">Medium</span></div>
+          </div>
+          <div class="bug-title">Profile photo update not reflected until app restart</div>
+          <div class="bug-meta"><span>Challengers iOS · iPhone 15 · iOS 17</span><span class="bug-meta-date">Apr 8, 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Open Profile → Edit. 2. Select a new photo and tap Save. 3. Return to ProfileView.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Updated photo displays immediately.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Previous photo still shown; image cache not invalidated on save.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- Bug 5 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-005</span>
+            <div class="bug-badges"><span class="badge badge-low">Low</span></div>
+          </div>
+          <div class="bug-title">"You" label appears on two rows in the ranking list</div>
+          <div class="bug-meta"><span>Challengers iOS · All devices · iOS 17+</span><span class="bug-meta-date">Mar 10, 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Sign in. 2. Open Ranking tab; scroll the leaderboard.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Only the current user's row is marked "You."</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">"You" label on current user's row and one other — stale highlight state.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- Bug 6 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">CH-BUG-006</span>
+            <div class="bug-badges"><span class="badge badge-low">Low</span></div>
+          </div>
+          <div class="bug-title">Single white frame flashes on launch before splash screen</div>
+          <div class="bug-meta"><span>Challengers iOS · iPhone 15 Pro · iOS 17</span><span class="bug-meta-date">May 20, 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Force-quit Challengers. 2. Relaunch immediately.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Splash screen appears without any visible artifact.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">One white frame flashes before the splash screen renders.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="sheet-link-row" style="margin-top:12px;">
+        <span class="sheet-link-text">Full Challengers bug log with reproduction steps and linked test cases</span>
+        <a class="btn btn-green" href="https://docs.google.com/spreadsheets/d/1pGPxYnzAk86ofTuOAELwbdHxg7oAy2xMyRyL3PxWbEA/edit?usp=sharing" target="_blank">View Full Bug Log on Google Sheets →</a>
+      </div>
+    </div>
+
+    <!-- Portfolio Web bugs tab -->
+    <div class="tab-panel" id="tab-bug-portfolio">
+      <div class="automation-callout" style="margin-bottom:16px;">
+        <div class="automation-callout-header">
+          <span class="automation-badge">⚡ Discovered via Playwright · edge.spec.ts</span>
+          <span style="font-size:12px; color:var(--muted);">Root cause: App.tsx handleScrollDown() using window.location.href</span>
+        </div>
+      </div>
+      <div class="bug-grid">
+
+        <!-- PW Bug 1 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">PW-BUG-001</span>
+            <div class="bug-badges"><span class="badge badge-medium">Medium</span></div>
+          </div>
+          <div class="bug-title">Invalid /project/:id URL renders LandingHero instead of 404</div>
+          <div class="bug-meta"><span>jay-portfolio.dev · React · Chrome · PORT-EDGE-001</span><span class="bug-meta-date">Jun 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">Navigate directly to /project/doesnotexist in browser.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">NotFound component renders with a 404 message.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">LandingHero shown. CTA triggers window.location.href="/" (full reload). Root cause: handleScrollDown() uses window.location.href instead of React Router navigate().</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+        <!-- PW Bug 2 -->
+        <div class="bug-card">
+          <div class="bug-card-header">
+            <span class="bug-id">PW-BUG-002</span>
+            <div class="bug-badges"><span class="badge badge-medium">Medium</span></div>
+          </div>
+          <div class="bug-title">Invalid /career/:id URL renders LandingHero instead of 404</div>
+          <div class="bug-meta"><span>jay-portfolio.dev · React · Chrome · PORT-EDGE-002</span><span class="bug-meta-date">Jun 2026</span></div>
+          <div class="bug-body">
+            <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">Navigate directly to /career/fakeid in browser.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">NotFound component renders; no blank screen or JS error.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Same root cause as PW-BUG-001. handleScrollDown() redirect prevents error pages from loading via direct URL.</span></div>
+            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="sheet-link-row" style="margin-top:12px;">
+        <span class="sheet-link-text" style="white-space:nowrap;">Full Portfolio Web bug log with reproduction steps and linked test cases</span>
+        <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+          <a class="btn btn-outline" href="https://github.com/jungwonJung/Jay-Portfolio" target="_blank" style="text-align:center;justify-content:center;width:240px;">View Source on GitHub →</a>
+          <a class="btn btn-green" href="https://docs.google.com/spreadsheets/d/1udIvzGMaX0l11ojRmK79EZ0f3_vzwEXBA8jPMO4EIko/edit?usp=sharing" target="_blank" style="text-align:center;justify-content:center;width:240px;">View Full Bug Log on Google Sheets →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEST SUMMARY ── -->
+<section id="summary">
+  <div class="container">
+    <div class="section-label">Test Summary</div>
+    <h2>Test Summary</h2>
+    <p class="section-desc">Final pass/fail breakdown and defect log across both products.</p>
+
+    <div class="summary-top">
+
+      <div class="summary-card">
+        <div class="donut-wrap">
+          <svg width="110" height="110" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#e5e7eb" stroke-width="13"/>
+            <!-- PASS: 24/32 = 75% = 226.2px; dashoffset = C - 0 = 0 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="13"
+              stroke-dasharray="226.2 75.4" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)"/>
+            <!-- FIXED: 6/32 = 18.75% = 56.6px; starts at 226.2; dashoffset = C - 226.2 = 75.4 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#4ade80" stroke-width="13"
+              stroke-dasharray="56.6 245.0" stroke-dashoffset="75.4"
+              transform="rotate(-90 60 60)"/>
+            <!-- BLOCKED: 2/32 = 6.25% = 18.8px; starts at 282.8; dashoffset = C - 282.8 = 18.8 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#f59e0b" stroke-width="13"
+              stroke-dasharray="18.8 282.8" stroke-dashoffset="18.8"
+              transform="rotate(-90 60 60)"/>
+            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">30/32</text>
+            <text x="60" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6b7280">cases</text>
+          </svg>
+        </div>
+        <div class="donut-label-group">
+          <div class="donut-app-name">Challengers</div>
+          <div class="donut-pct">93.8%</div>
+          <div class="donut-count">24 pass · 6 fixed · 2 blocked</div>
+        </div>
+        <div class="donut-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Pass</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#4ade80"></span>Fixed</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Blocked</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="donut-wrap">
+          <svg width="110" height="110" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#e5e7eb" stroke-width="13"/>
+            <!-- PASS: 26/28 = 92.86% = 280.0px; dashoffset=0 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="13"
+              stroke-dasharray="280.0 21.6" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)"/>
+            <!-- FAIL: 2/28 = 7.14% = 21.6px; starts at 280.0; dashoffset = C-280.0 = 21.6 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#dc2626" stroke-width="13"
+              stroke-dasharray="21.6 280.0" stroke-dashoffset="21.6"
+              transform="rotate(-90 60 60)"/>
+            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">26/28</text>
+            <text x="60" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6b7280">cases</text>
+          </svg>
+        </div>
+        <div class="donut-label-group">
+          <div class="donut-app-name">Portfolio Web</div>
+          <div class="donut-pct">92.9%</div>
+          <div class="donut-count">26 pass · 2 fail · 0 blocked</div>
+        </div>
+        <div class="donut-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Pass</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#dc2626"></span>Fail</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="donut-wrap">
+          <svg width="110" height="110" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#e5e7eb" stroke-width="13"/>
+            <!-- PASS 1st run (50/60 = 83.3% = 251.3px); dashoffset=0 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="13"
+              stroke-dasharray="251.3 50.3" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)"/>
+            <!-- FIXED (6/60 = 10% = 30.2px); starts at 251.3; dashoffset = C-251.3 = 50.3 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#4ade80" stroke-width="13"
+              stroke-dasharray="30.2 271.4" stroke-dashoffset="50.3"
+              transform="rotate(-90 60 60)"/>
+            <!-- FAIL (2/60 = 3.3% = 10.1px); starts at 281.5; dashoffset = C-281.5 = 20.1 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#dc2626" stroke-width="13"
+              stroke-dasharray="10.1 291.5" stroke-dashoffset="20.1"
+              transform="rotate(-90 60 60)"/>
+            <!-- BLOCKED (2/60 = 3.3% = 10.1px); starts at 291.6; dashoffset = C-291.6 = 10.0 -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#f59e0b" stroke-width="13"
+              stroke-dasharray="10.1 291.5" stroke-dashoffset="10.0"
+              transform="rotate(-90 60 60)"/>
+            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">56/60</text>
+            <text x="60" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6b7280">cases</text>
+          </svg>
+        </div>
+        <div class="donut-label-group">
+          <div class="donut-app-name">Total</div>
+          <div class="donut-pct">93.3%</div>
+          <div class="donut-count">50 pass · 6 fixed · 2 fail · 2 blocked</div>
+        </div>
+        <div class="donut-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Pass</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#4ade80"></span>Fixed</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#dc2626"></span>Fail</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Blocked</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="summary-tables">
+      <div class="summary-table-card">
+        <div class="summary-table-title">Status Breakdown</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Pass</th>
+              <th>Fixed</th>
+              <th>Fail</th>
+              <th>Blocked</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Challengers</strong></td>
+              <td><span class="badge badge-pass">24</span></td>
+              <td><span class="badge badge-pass">6</span></td>
+              <td>0</td>
+              <td><span class="badge badge-blocked">2</span></td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td><strong>Portfolio Web</strong></td>
+              <td><span class="badge badge-pass">26</span></td>
+              <td>0</td>
+              <td><span class="badge badge-fail">2</span></td>
+              <td>0</td>
+              <td>28</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td><span class="badge badge-pass">50</span></td>
+              <td><span class="badge badge-pass">6</span></td>
+              <td><span class="badge badge-fail">2</span></td>
+              <td><span class="badge badge-blocked">2</span></td>
+              <td>60</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="summary-table-card">
+        <div class="summary-table-title">Bug Log</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Bug ID</th>
+              <th>Severity</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="test-id">CH-BUG-001</span></td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td>2026-01-15</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-BUG-002</span></td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td>2025-12-18</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-BUG-003</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>2026-02-22</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-BUG-004</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>2026-04-08</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-BUG-005</span></td>
+              <td><span class="badge badge-low">Low</span></td>
+              <td>2026-03-10</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">CH-BUG-006</span></td>
+              <td><span class="badge badge-low">Low</span></td>
+              <td>2026-05-20</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">PW-BUG-001</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>2026-06-08</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+            <tr>
+              <td><span class="test-id">PW-BUG-002</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>2026-06-08</td>
+              <td><span class="badge badge-pass">Resolved</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="summary-eval">
+      <h3>Outcomes</h3>
+      <p><strong>Challengers (manual):</strong> <span class="num">24</span>/<span class="num">32</span> cases passed on first run. <span class="num">6</span> required a fix and retest — all resolved. <span class="num">2</span> were blocked due to AASA not being deployed, so <span class="num">30</span> cases were executed in full. Found <span class="num">6</span> bugs across the session. The high-risk cases — midnight cache (CH-CHAL-006), upload race condition (CH-CHKIN-002), Apple Sign-In linking (CH-AUTH-004) — all came back clean.</p>
+      <p style="margin-top:10px"><strong>jay-portfolio.dev (Playwright):</strong> <span class="num">26</span>/<span class="num">28</span> cases passed. The <span class="num">2</span> failures both came from <code style="font-family:monospace;font-size:12px">edge.spec.ts</code> — invalid routes were rendering LandingHero instead of a 404 page. Root cause: <code style="font-family:monospace;font-size:12px">handleScrollDown()</code> was calling <code style="font-family:monospace;font-size:12px">window.location.href</code> directly instead of React Router's <code style="font-family:monospace;font-size:12px">navigate()</code>. Both bugs were filed and resolved.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOLS & SKILLS ── -->
+<section id="tools">
+  <div class="container">
+    <div class="section-label">Tools &amp; Skills</div>
+    <h2>Tools &amp; Skills</h2>
+
+    <div class="tools-grid" style="margin-top: 24px;">
+      <div class="tools-group">
+        <h3>Testing</h3>
+        <div class="chips">
+          <span class="chip">Test Planning</span>
+          <span class="chip">Test Case Design</span>
+          <span class="chip">Bug Reporting</span>
+          <span class="chip">Smoke Testing</span>
+          <span class="chip">Regression Testing</span>
+          <span class="chip">Exploratory Testing</span>
+          <span class="chip">Mobile Testing (iOS)</span>
+          <span class="chip">Cross-Browser Testing</span>
+          <span class="chip">Defect Triage</span>
+          <span class="chip">Test Automation (Playwright)</span>
+          <span class="chip">ISTQB (In Preparation)</span>
+        </div>
+      </div>
+      <div class="tools-group">
+        <h3>Tools</h3>
+        <div class="chips">
+          <span class="chip">Playwright</span>
+          <span class="chip">Jira</span>
+          <span class="chip">Google Sheets</span>
+          <span class="chip">Xcode Instruments</span>
+          <span class="chip">Firebase Console</span>
+          <span class="chip">Lighthouse</span>
+          <span class="chip">Postman</span>
+          <span class="chip">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="tools-group">
+        <h3>Development</h3>
+        <div class="chips">
+          <span class="chip">Swift / SwiftUI</span>
+          <span class="chip">Firebase (Auth, Firestore, FCM)</span>
+          <span class="chip">Cloudinary</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Vercel</span>
+        </div>
+      </div>
+      <div class="tools-group">
+        <h3>Data QA</h3>
+        <div class="chips">
+          <span class="chip">AI Dataset Review</span>
+          <span class="chip">Data Validation</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Excel / Google Sheets</span>
+          <span class="chip">Acceptance Criteria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 Jungwon Jung &nbsp;·&nbsp; <a href="mailto:wjdwjd1501@gmail.com">wjdwjd1501@gmail.com</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/jungwon-jung-218750232/" target="_blank">LinkedIn</a> &nbsp;·&nbsp; <a href="https://jay-portfolio.dev" target="_blank">jay-portfolio.dev</a></p>
+</footer>
+
+<script>
+  function switchTab(name) {
+    const section = document.getElementById('test-cases');
+    section.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    section.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function switchBugTab(name, btn) {
+    const section = document.getElementById('bug-reports');
+    section.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    section.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  const mainNav = document.getElementById('main-nav');
+
+  function toggleNav() {
+    mainNav.classList.toggle('nav-open');
+  }
+
+  function closeNav() {
+    mainNav.classList.remove('nav-open');
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!mainNav.contains(e.target)) closeNav();
+  });
+
+  // ── SCROLLSPY ──
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sideItems = document.querySelectorAll('.side-nav-item');
+  const sectionIds = ['about', 'test-plan', 'test-cases', 'bug-reports', 'summary', 'tools'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function setActive(id) {
+    navLinks.forEach(a => {
+      a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+    });
+    sideItems.forEach((item, i) => {
+      item.classList.toggle('active', sectionIds[i] === id);
+    });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, {
+    rootMargin: '-56px 0px -60% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(s => observer.observe(s));
+  setActive('about');
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
