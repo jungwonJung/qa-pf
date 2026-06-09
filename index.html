@@ -482,6 +482,7 @@
     .badge-critical { background: #fce7f3; color: #be185d; }
     .badge-major { background: var(--red-bg); color: var(--red); }
     .badge-minor { background: var(--blue-bg); color: var(--blue); }
+    .badge-review { background: #eef2ff; color: #4f46e5; }
 
     .test-id {
       font-family: 'SF Mono', 'Fira Code', monospace;
@@ -492,6 +493,26 @@
       padding: 2px 6px;
       border-radius: 3px;
       white-space: nowrap;
+    }
+
+    .status-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .status-stack .badge,
+    .status-stack .test-id {
+      font-size: 10px;
+      line-height: 1.2;
+    }
+
+    .status-note {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.35;
     }
 
     /* ── TABS ── */
@@ -706,7 +727,24 @@
     .summary-table-card {
       border: 1px solid var(--border);
       border-radius: 8px;
-      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .summary-table-card table {
+      min-width: 100%;
+    }
+
+    .status-breakdown-table {
+      min-width: 760px;
+    }
+
+    .bug-log-table {
+      min-width: 640px;
+    }
+
+    .portfolio-test-table {
+      min-width: 820px;
     }
 
     .summary-table-title {
@@ -737,6 +775,60 @@
       font-size: 13px;
       color: #374151;
       line-height: 1.65;
+    }
+
+    .outcome-groups {
+      display: grid;
+      gap: 16px;
+    }
+
+    .outcome-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .outcome-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .outcome-list {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .outcome-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.55;
+    }
+
+    .outcome-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .inline-code {
+      font-family: monospace;
+      font-size: 12px;
+      padding: 1px 5px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      color: #111827;
+      white-space: nowrap;
     }
 
     /* ── TOOLS ── */
@@ -1103,7 +1195,7 @@
       I built both test subjects from scratch — so every edge case here came from reading actual source code, not guessing at inputs. This portfolio covers <strong>Challengers</strong> (iOS&nbsp;·&nbsp;SwiftUI&nbsp;·&nbsp;Firebase) across <span class="num">32</span>&nbsp;structured&nbsp;test&nbsp;cases, and <strong><span style="white-space:nowrap">jay&#8209;portfolio.dev</span></strong> (React&nbsp;·&nbsp;TypeScript) across <span class="num">28</span>&nbsp;automated&nbsp;Playwright&nbsp;cases.
     </p>
     <div class="hero-links">
-      <a class="btn btn-outline" href="https://drive.google.com/file/d/1sczwbE5o2G9aC6EDHacYgS2T2awL-WIr/view?usp=sharing" target="_blank">Resume ↗</a>
+      <a class="btn btn-outline" href="https://drive.google.com/file/d/1nM4uG35cXr5vy7AG91gBO3QRyhmgqQgM/view?usp=sharing" target="_blank">Resume ↗</a>
       <a class="btn btn-primary" href="https://www.linkedin.com/in/jungwon-jung-218750232/" target="_blank">LinkedIn ↗</a>
       <a class="btn btn-outline" href="https://jay-portfolio.dev" target="_blank">jay-portfolio.dev ↗</a>
       <a class="btn btn-outline" href="mailto:wjdwjd1501@gmail.com">wjdwjd1501@gmail.com</a>
@@ -1250,7 +1342,7 @@
           </div></li>
           <li><div class="plan-item-content">
             <div class="plan-item-head">Edge / Negative <span class="badge badge-type">3 cases</span></div>
-            <div class="plan-item-body">Invalid route IDs → NotFound; cold deep-link entry. Both FAIL cases found here.</div>
+            <div class="plan-item-body">Invalid route IDs → NotFound; cold deep-link behavior reviewed. 2 initial failures filed as PW-BUG-001 and PW-BUG-002 → fixed → retested PASS on 2026-06-09. PORT-EDGE-003 remains REVIEW pending product decision.</div>
           </div></li>
         </ul>
       </div>
@@ -1496,57 +1588,72 @@
     <!-- Portfolio Web tab -->
     <div class="tab-panel" id="tab-portfolio">
       <div class="table-wrap">
-        <table>
+        <table class="portfolio-test-table">
           <thead>
             <tr>
               <th>Test ID</th>
-              <th>Description</th>
-              <th>Type</th>
               <th>Priority</th>
-              <th>Expected Result</th>
-              <th>Status</th>
+              <th>Scenario</th>
+              <th>Expected / Decision</th>
+              <th>Initial</th>
+              <th>Bug / Fix</th>
+              <th>Final</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="test-id">PORT-SMOKE-001</span></td>
-              <td>Site root loads without errors — no blank screen, no JS exceptions</td>
-              <td><span class="badge badge-type">Smoke P0</span></td>
               <td><span class="badge badge-high">High</span></td>
+              <td>Site root loads without errors — no blank screen, no JS exceptions</td>
               <td>DevTools Console: 0 app JS errors; LandingHero renders</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+              <td><span class="status-note">N/A</span></td>
               <td><span class="badge badge-pass">PASS</span></td>
             </tr>
             <tr>
               <td><span class="test-id">PORT-NAV-004</span></td>
-              <td>ProjectDetail back button → returns to IOSHome (skipLanding flag respected)</td>
-              <td><span class="badge badge-type">Navigation</span></td>
               <td><span class="badge badge-high">High</span></td>
-              <td>IOSHome shown; Landing Hero NOT re-displayed</td>
+              <td>ProjectDetail back button → returns to IOSHome</td>
+              <td>IOSHome shown; LandingHero is not re-displayed because skipLanding flag is respected</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+              <td><span class="status-note">N/A</span></td>
               <td><span class="badge badge-pass">PASS</span></td>
             </tr>
             <tr>
               <td><span class="test-id">PORT-LINK-007</span></td>
-              <td>CONTACT Resume row → CV PDF opens (HTTP 200, no 404)</td>
-              <td><span class="badge badge-type">Links</span></td>
               <td><span class="badge badge-high">High</span></td>
-              <td>/public/JUNGWON_JUNG_CV_2026.pdf returns 200 OK</td>
+              <td>CONTACT Resume row opens the CV PDF</td>
+              <td>/public/JUNGWON_JUNG_CV_2026.pdf returns 200 OK, no 404</td>
+              <td><span class="badge badge-pass">PASS</span></td>
+              <td><span class="status-note">N/A</span></td>
               <td><span class="badge badge-pass">PASS</span></td>
             </tr>
-            <tr style="background:#fff5f5;">
+            <tr>
               <td><span class="test-id">PORT-EDGE-001</span></td>
-              <td>Navigate to /project/doesnotexist → NotFound page shown, no crash</td>
-              <td><span class="badge badge-type">Edge</span></td>
               <td><span class="badge badge-high">High</span></td>
+              <td>Invalid /project/:id route should not fall back to LandingHero</td>
               <td>NotFound component renders with user-friendly 404 message</td>
               <td><span class="badge badge-fail">FAIL</span></td>
+              <td><div class="status-stack"><span class="test-id">PW-BUG-001</span><span class="badge badge-pass">FIXED</span></div></td>
+              <td><span class="badge badge-pass">PASS</span></td>
             </tr>
-            <tr style="background:#fff5f5;">
+            <tr>
               <td><span class="test-id">PORT-EDGE-002</span></td>
-              <td>Navigate to /career/fakeid → NotFound page shown, no crash</td>
-              <td><span class="badge badge-type">Edge</span></td>
               <td><span class="badge badge-high">High</span></td>
+              <td>Invalid /career/:id route should not fall back to LandingHero</td>
               <td>NotFound component renders; no blank screen or JS error</td>
               <td><span class="badge badge-fail">FAIL</span></td>
+              <td><div class="status-stack"><span class="test-id">PW-BUG-002</span><span class="badge badge-pass">FIXED</span></div></td>
+              <td><span class="badge badge-pass">PASS</span></td>
+            </tr>
+            <tr style="background:#f0f4ff;">
+              <td><span class="test-id">PORT-EDGE-003</span></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>Cold deep-link behavior for /project/challengers requires product decision</td>
+              <td>Either open ProjectDetail directly or intentionally route through LandingHero; behavior must be documented</td>
+              <td><span class="badge badge-review">REVIEW</span></td>
+              <td><span class="status-note">N/A · Product decision</span></td>
+              <td><span class="badge badge-review">REVIEW</span></td>
             </tr>
           </tbody>
         </table>
@@ -1569,7 +1676,7 @@
 <span class="tree-file">    ├── content.spec.ts</span><span class="tree-dim">      (5 cases · all PASS)</span>
 <span class="tree-file">    ├── links.spec.ts</span><span class="tree-dim">        (7 cases · all PASS)</span>
 <span class="tree-file">    ├── visual.spec.ts</span><span class="tree-dim">       (4 cases · all PASS)</span>
-<span class="tree-file">    └── edge.spec.ts</span><span class="tree-dim">         (3 cases · </span><span class="tree-fail">2 FAIL → bugs filed</span><span class="tree-dim">)</span></pre>
+<span class="tree-file">    └── edge.spec.ts</span><span class="tree-dim">         (3 cases · </span><span class="tree-fail">2 initial FAIL</span><span class="tree-dim"> → fixed/retested PASS · 1 REVIEW)</span></pre>
       </div>
 
       <div class="sheet-link-row">
@@ -1585,7 +1692,7 @@
   <div class="container">
     <div class="section-label">Bug Reports</div>
     <h2>Bug Reports</h2>
-    <p class="section-desc">6 bugs in Challengers (manual), 2 in jay-portfolio.dev (Playwright). All resolved.</p>
+    <p class="section-desc">8 bugs found across manual and automated testing. All 8 were fixed and retested as PASS. 2 Challengers cases remain environment-blocked due to AASA / APNs production constraints.</p>
 
     <div class="tabs">
       <button class="tab-btn active" onclick="switchBugTab('bug-challengers', this)">🏆 Challengers iOS</button>
@@ -1608,7 +1715,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Account A submits a check-in photo. 2. Account B opens the challenge detail view.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Photo appears in Account B's check-in feed.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Photo not shown. Record saved to Firestore but not rendered for other members.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest notes in linked Challengers bug log.</span></div>
           </div>
         </div>
 
@@ -1624,7 +1734,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Fresh install; tap Sign Up. 2. ConsentView loads; check privacy checkbox. 3. Tap Continue.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Navigates to sign-up form (step 2 of 3).</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Continue tap has no effect; user is stuck on the consent screen.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest notes in linked Challengers bug log.</span></div>
           </div>
         </div>
 
@@ -1640,7 +1753,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Open Friends tab; search for a user. 2. Tap Add Friend twice in quick succession.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">One request sent; button shows Sent state after first tap.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Two requests saved to Firestore; recipient gets two notifications.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest notes in linked Challengers bug log.</span></div>
           </div>
         </div>
 
@@ -1656,7 +1772,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Open Profile → Edit. 2. Select a new photo and tap Save. 3. Return to ProfileView.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Updated photo displays immediately.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Previous photo still shown; image cache not invalidated on save.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest notes in linked Challengers bug log.</span></div>
           </div>
         </div>
 
@@ -1672,7 +1791,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Sign in. 2. Open Ranking tab; scroll the leaderboard.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Only the current user's row is marked "You."</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">"You" label on current user's row and one other — stale highlight state.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest notes in linked Challengers bug log.</span></div>
           </div>
         </div>
 
@@ -1688,7 +1810,10 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">1. Force-quit Challengers. 2. Relaunch immediately.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">Splash screen appears without any visible artifact.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">One white frame flashes before the splash screen renders.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Evidence</span><span class="bug-row-val">Manual retest on iPhone 15 Pro after splash timing fix.</span></div>
           </div>
         </div>
 
@@ -1721,7 +1846,11 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">Navigate directly to /project/doesnotexist in browser.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">NotFound component renders with a 404 message.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">LandingHero shown. CTA triggers window.location.href="/" (full reload). Root cause: handleScrollDown() uses window.location.href instead of React Router navigate().</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Evidence</span><span class="bug-row-val">Playwright edge.spec.ts · test_results.json</span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Date</span><span class="bug-row-val">2026-06-09</span></div>
           </div>
         </div>
 
@@ -1737,7 +1866,11 @@
             <div class="bug-row"><span class="bug-row-label">Steps</span><span class="bug-row-val">Navigate directly to /career/fakeid in browser.</span></div>
             <div class="bug-row"><span class="bug-row-label">Expected</span><span class="bug-row-val">NotFound component renders; no blank screen or JS error.</span></div>
             <div class="bug-row"><span class="bug-row-label">Actual</span><span class="bug-row-val">Same root cause as PW-BUG-001. handleScrollDown() redirect prevents error pages from loading via direct URL.</span></div>
-            <div class="bug-row"><span class="bug-row-label">Status</span><span class="bug-row-val"><span class="badge badge-pass">Resolved</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Initial Status</span><span class="bug-row-val"><span class="badge badge-fail">FAIL</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Bug Status</span><span class="bug-row-val"><span class="badge badge-pass">FIXED</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Result</span><span class="bug-row-val"><span class="badge badge-pass">PASS</span></span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Evidence</span><span class="bug-row-val">Playwright edge.spec.ts · test_results.json</span></div>
+            <div class="bug-row"><span class="bug-row-label">Retest Date</span><span class="bug-row-val">2026-06-09</span></div>
           </div>
         </div>
 
@@ -1798,26 +1931,23 @@
         <div class="donut-wrap">
           <svg width="110" height="110" viewBox="0 0 120 120">
             <circle cx="60" cy="60" r="48" fill="none" stroke="#e5e7eb" stroke-width="13"/>
-            <!-- PASS: 26/28 = 92.86% = 280.0px; dashoffset=0 -->
+            <!-- PASS: 28/28 = 100% = 301.6px -->
             <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="13"
-              stroke-dasharray="280.0 21.6" stroke-dashoffset="0"
+              stroke-dasharray="301.6 0" stroke-dashoffset="0"
               transform="rotate(-90 60 60)"/>
-            <!-- FAIL: 2/28 = 7.14% = 21.6px; starts at 280.0; dashoffset = C-280.0 = 21.6 -->
-            <circle cx="60" cy="60" r="48" fill="none" stroke="#dc2626" stroke-width="13"
-              stroke-dasharray="21.6 280.0" stroke-dashoffset="21.6"
-              transform="rotate(-90 60 60)"/>
-            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">26/28</text>
+            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">28/28</text>
             <text x="60" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6b7280">cases</text>
           </svg>
         </div>
         <div class="donut-label-group">
           <div class="donut-app-name">Portfolio Web</div>
-          <div class="donut-pct">92.9%</div>
-          <div class="donut-count">26 pass · 2 fail · 0 blocked</div>
+          <div class="donut-pct">100%</div>
+          <div class="donut-count">28 final pass · 0 open defects</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Initial: 26 pass · 2 fail → Retest: 2/2 PASS</div>
         </div>
         <div class="donut-legend">
           <span class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Pass</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#dc2626"></span>Fail</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#6366f1"></span>Review</span>
         </div>
       </div>
 
@@ -1825,35 +1955,26 @@
         <div class="donut-wrap">
           <svg width="110" height="110" viewBox="0 0 120 120">
             <circle cx="60" cy="60" r="48" fill="none" stroke="#e5e7eb" stroke-width="13"/>
-            <!-- PASS 1st run (50/60 = 83.3% = 251.3px); dashoffset=0 -->
+            <!-- PASS: 58/60 = 96.67% = 291.5px; dashoffset=0 -->
             <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="13"
-              stroke-dasharray="251.3 50.3" stroke-dashoffset="0"
+              stroke-dasharray="291.5 10.1" stroke-dashoffset="0"
               transform="rotate(-90 60 60)"/>
-            <!-- FIXED (6/60 = 10% = 30.2px); starts at 251.3; dashoffset = C-251.3 = 50.3 -->
-            <circle cx="60" cy="60" r="48" fill="none" stroke="#4ade80" stroke-width="13"
-              stroke-dasharray="30.2 271.4" stroke-dashoffset="50.3"
-              transform="rotate(-90 60 60)"/>
-            <!-- FAIL (2/60 = 3.3% = 10.1px); starts at 281.5; dashoffset = C-281.5 = 20.1 -->
-            <circle cx="60" cy="60" r="48" fill="none" stroke="#dc2626" stroke-width="13"
-              stroke-dasharray="10.1 291.5" stroke-dashoffset="20.1"
-              transform="rotate(-90 60 60)"/>
-            <!-- BLOCKED (2/60 = 3.3% = 10.1px); starts at 291.6; dashoffset = C-291.6 = 10.0 -->
+            <!-- BLOCKED: 2/60 = 3.33% = 10.1px; starts at 291.5; dashoffset = C-291.5 = 10.1 -->
             <circle cx="60" cy="60" r="48" fill="none" stroke="#f59e0b" stroke-width="13"
-              stroke-dasharray="10.1 291.5" stroke-dashoffset="10.0"
+              stroke-dasharray="10.1 291.5" stroke-dashoffset="10.1"
               transform="rotate(-90 60 60)"/>
-            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">56/60</text>
+            <text x="60" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#0a0a0a">58/60</text>
             <text x="60" y="69" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6b7280">cases</text>
           </svg>
         </div>
         <div class="donut-label-group">
           <div class="donut-app-name">Total</div>
-          <div class="donut-pct">93.3%</div>
-          <div class="donut-count">50 pass · 6 fixed · 2 fail · 2 blocked</div>
+          <div class="donut-pct">96.7%</div>
+          <div class="donut-count">58 executable pass · 2 env-blocked</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Initial: 50 pass · 8 fail → Retest: 8/8 PASS · Open: 0</div>
         </div>
         <div class="donut-legend">
           <span class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Pass</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#4ade80"></span>Fixed</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#dc2626"></span>Fail</span>
           <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Blocked</span>
         </div>
       </div>
@@ -1863,41 +1984,45 @@
     <div class="summary-tables">
       <div class="summary-table-card">
         <div class="summary-table-title">Status Breakdown</div>
-        <table>
+        <table class="status-breakdown-table">
           <thead>
             <tr>
               <th>Product</th>
-              <th>Pass</th>
-              <th>Fixed</th>
-              <th>Fail</th>
+              <th>Initial Pass</th>
+              <th>Initial Fail</th>
+              <th>Fixed &amp; Retested</th>
+              <th>Final Exec Pass</th>
               <th>Blocked</th>
-              <th>Total</th>
+              <th>Open Defects</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Challengers</strong></td>
               <td><span class="badge badge-pass">24</span></td>
+              <td><span class="badge badge-fail">6</span></td>
               <td><span class="badge badge-pass">6</span></td>
-              <td>0</td>
+              <td><span class="badge badge-pass">30</span></td>
               <td><span class="badge badge-blocked">2</span></td>
-              <td>32</td>
+              <td>0</td>
             </tr>
             <tr>
               <td><strong>Portfolio Web</strong></td>
               <td><span class="badge badge-pass">26</span></td>
-              <td>0</td>
               <td><span class="badge badge-fail">2</span></td>
+              <td><span class="badge badge-pass">2</span></td>
+              <td><span class="badge badge-pass">28</span></td>
               <td>0</td>
-              <td>28</td>
+              <td>0</td>
             </tr>
             <tr>
               <td><strong>Total</strong></td>
               <td><span class="badge badge-pass">50</span></td>
-              <td><span class="badge badge-pass">6</span></td>
-              <td><span class="badge badge-fail">2</span></td>
+              <td><span class="badge badge-fail">8</span></td>
+              <td><span class="badge badge-pass">8</span></td>
+              <td><span class="badge badge-pass">58</span></td>
               <td><span class="badge badge-blocked">2</span></td>
-              <td>60</td>
+              <td>0</td>
             </tr>
           </tbody>
         </table>
@@ -1905,12 +2030,13 @@
 
       <div class="summary-table-card">
         <div class="summary-table-title">Bug Log</div>
-        <table>
+        <table class="bug-log-table">
           <thead>
             <tr>
               <th>Bug ID</th>
               <th>Severity</th>
-              <th>Date</th>
+              <th>Found</th>
+              <th>Retest</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -1919,49 +2045,57 @@
               <td><span class="test-id">CH-BUG-001</span></td>
               <td><span class="badge badge-critical">Critical</span></td>
               <td>2026-01-15</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">CH-BUG-002</span></td>
               <td><span class="badge badge-critical">Critical</span></td>
               <td>2025-12-18</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">CH-BUG-003</span></td>
               <td><span class="badge badge-medium">Medium</span></td>
               <td>2026-02-22</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">CH-BUG-004</span></td>
               <td><span class="badge badge-medium">Medium</span></td>
               <td>2026-04-08</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">CH-BUG-005</span></td>
               <td><span class="badge badge-low">Low</span></td>
               <td>2026-03-10</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">CH-BUG-006</span></td>
               <td><span class="badge badge-low">Low</span></td>
               <td>2026-05-20</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>Manual PASS</td>
+              <td><span class="badge badge-pass">Fixed + Retested</span></td>
             </tr>
             <tr>
               <td><span class="test-id">PW-BUG-001</span></td>
               <td><span class="badge badge-medium">Medium</span></td>
               <td>2026-06-08</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>2026-06-09</td>
+              <td><span class="badge badge-pass">Fixed + Retested PASS</span></td>
             </tr>
             <tr>
               <td><span class="test-id">PW-BUG-002</span></td>
               <td><span class="badge badge-medium">Medium</span></td>
               <td>2026-06-08</td>
-              <td><span class="badge badge-pass">Resolved</span></td>
+              <td>2026-06-09</td>
+              <td><span class="badge badge-pass">Fixed + Retested PASS</span></td>
             </tr>
           </tbody>
         </table>
@@ -1970,8 +2104,26 @@
 
     <div class="summary-eval">
       <h3>Outcomes</h3>
-      <p><strong>Challengers (manual):</strong> <span class="num">24</span>/<span class="num">32</span> cases passed on first run. <span class="num">6</span> required a fix and retest — all resolved. <span class="num">2</span> were blocked due to AASA not being deployed, so <span class="num">30</span> cases were executed in full. Found <span class="num">6</span> bugs across the session. The high-risk cases — midnight cache (CH-CHAL-006), upload race condition (CH-CHKIN-002), Apple Sign-In linking (CH-AUTH-004) — all came back clean.</p>
-      <p style="margin-top:10px"><strong>jay-portfolio.dev (Playwright):</strong> <span class="num">26</span>/<span class="num">28</span> cases passed. The <span class="num">2</span> failures both came from <code style="font-family:monospace;font-size:12px">edge.spec.ts</code> — invalid routes were rendering LandingHero instead of a 404 page. Root cause: <code style="font-family:monospace;font-size:12px">handleScrollDown()</code> was calling <code style="font-family:monospace;font-size:12px">window.location.href</code> directly instead of React Router's <code style="font-family:monospace;font-size:12px">navigate()</code>. Both bugs were filed and resolved.</p>
+      <div class="outcome-groups">
+        <div class="outcome-group">
+          <div class="outcome-title">Challengers (manual)</div>
+          <ul class="outcome-list">
+            <li><span class="num">24</span>/<span class="num">32</span> cases passed on first run; <span class="num">6</span> required a fix and retest, and all were resolved.</li>
+            <li><span class="num">2</span> cases were blocked by AASA deployment constraints, so <span class="num">30</span> cases were executed in full.</li>
+            <li>Found <span class="num">6</span> bugs across the session; high-risk cases for midnight cache, upload race condition, and Apple Sign-In linking came back clean.</li>
+          </ul>
+        </div>
+
+        <div class="outcome-group">
+          <div class="outcome-title">jay-portfolio.dev (Playwright)</div>
+          <ul class="outcome-list">
+            <li>Initial run: <span class="num">26</span>/<span class="num">28</span> cases passed and <span class="num">2</span> failed in <code class="inline-code">edge.spec.ts</code>.</li>
+            <li>Failures were filed as PW-BUG-001 and PW-BUG-002; root cause was <code class="inline-code">handleScrollDown()</code> using <code class="inline-code">window.location.href</code> instead of React Router's <code class="inline-code">navigate()</code>.</li>
+            <li>After the routing fix, both cases were retested on 2026-06-09 and passed. Final executable result: <span class="num">28</span>/<span class="num">28</span> PASS, 0 open defects.</li>
+            <li>PORT-EDGE-003 remains REVIEW because cold deep-link behavior depends on the intended product UX decision.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
